@@ -31,6 +31,7 @@ export const Controller: FC<Props> = ({render}) => {
 
   function onSelectedOptionsChange(options: Option[]): void {
     setSelectedValues(options.map(it => it.value))
+    setValues(options.map(it => it.value));
   }
 
   function decreaseValues() {

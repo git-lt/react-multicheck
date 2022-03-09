@@ -12,12 +12,18 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
+  devServer: {
+    host: '0.0.0.0',
+    hot: true,
+    disableHostCheck: true,
+  },
   module: {
     rules: [{
-      test: /\.css$/,
+      test: /\.less$/,
       use: [
         {loader: 'style-loader'},
-        {loader: 'css-loader'}
+        {loader: 'css-loader'},
+        {loader: 'less-loader'},
       ]
     }, {
       test: /\.tsx?$/,

@@ -1,7 +1,8 @@
-import './MultiCheck.css';
+import './MultiCheck.less';
 
 import React from 'react';
 import {FC} from 'react';
+import CheckboxGroup from './Group'
 
 export type Option = {
   label: string,
@@ -35,8 +36,14 @@ type Props = {
   onChange?: (options: Option[]) => void,
 }
 
-export const MultiCheck: FC<Props> = (props) => {
-  return <div className='MultiCheck'>
-    TODO
+export const MultiCheck: FC<Props> = ({ label, options, columns, values, onChange }) => {
+  return <div>
+    <CheckboxGroup 
+      name={label}
+      options={options} 
+      value={values} 
+      column={columns}
+      onChange={onChange} 
+     />
   </div>
 }
