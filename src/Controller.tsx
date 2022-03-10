@@ -1,7 +1,7 @@
 import {FC} from 'react';
 import {useState} from 'react';
 import React from 'react';
-import {Option} from './MultiCheck';
+import type {Option} from './MultiCheck/interface';
 import lodash from 'lodash';
 
 type Props = {

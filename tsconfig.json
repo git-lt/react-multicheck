@@ -2,8 +2,9 @@
   "compilerOptions": {
     "strict": true,
     "target": "es6",
-    "module": "commonjs",
+    "module": "es6",
     "jsx": "react",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true

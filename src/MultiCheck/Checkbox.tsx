@@ -1,31 +1,18 @@
 import React, { useContext } from 'react';
-import type { FC, ChangeEvent, CSSProperties, ReactNode } from 'react';
+import type { FC  } from 'react';
 import cls from 'classnames';
-import { GroupContext } from './Group';
+import { GroupContext } from './MultiCheck';
+import type { CheckboxProps } from './interface';
+
 import './MultiCheck.less';
-
 const prefix = 'multi-checkbox';
+const noop = () => {};
 
-export type Option = {
-  label: string;
-  value: string;
-};
-
-export interface CheckboxProps {
-  className?: string;
-  style?: CSSProperties;
-  children?: ReactNode;
-  indeterminate?: boolean;
-  value?: any;
-  checked?: boolean;
-  name?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-const Checkbox: FC<CheckboxProps> = ({ className, style, children, indeterminate = false, ...restProps }) => {
+const Checkbox: FC<CheckboxProps> = ({ className, style, children, indeterminate = false, skipGroup=false, ...restProps }) => {
   const checkboxGroup = useContext(GroupContext);
   const checkboxProps: CheckboxProps = { ...restProps };
-  if (checkboxGroup) {
+
+  if (checkboxGroup && !skipGroup) {
     checkboxProps.onChange = (...args) => {
       if (restProps.onChange) {
         restProps.onChange(...args);
@@ -35,7 +22,6 @@ const Checkbox: FC<CheckboxProps> = ({ className, style, children, indeterminate
       }
     };
     checkboxProps.value = restProps.value;
-    checkboxProps.name = checkboxGroup.name;
     checkboxProps.checked = checkboxGroup.value.includes(restProps.value);
   }
 
@@ -44,13 +30,14 @@ const Checkbox: FC<CheckboxProps> = ({ className, style, children, indeterminate
     [`${prefix}--checked`]: restProps.checked && !indeterminate,
     [`${prefix}--indeterminate`]: indeterminate,
   });
+
   return (
     <label className={labelCls}>
       <span className={checkboxCls}>
         <input {...checkboxProps} className="multi-checkbox-input" type="checkbox" />
         <span className="multi-checkbox-inner"></span>
       </span>
-      <span>{children}</span>
+      <span>{skipGroup ? children : (checkboxGroup?.label || children)}</span>
     </label>
   );
 };
