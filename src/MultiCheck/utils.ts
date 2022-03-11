@@ -11,3 +11,12 @@ export function groupByColumn(list: Option[], column: number) {
   }
   return res;
 }
+
+export function normalizeOptions(list: any[]): Option[]{
+  return list.map(v => {
+    if(typeof v === 'string' || typeof v === 'boolean'){
+      return { label: String(v), value: String(v)}
+    }
+    return v;
+  })
+}

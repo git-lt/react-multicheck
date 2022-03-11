@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext } from 'react';
 import type {FC, ChangeEvent} from 'react';
 import Checkbox from './Checkbox';
 import type { CheckboxGroupContext, MultiCheckProps, Option } from './interface';
-import { groupByColumn } from './utils';
+import { groupByColumn, normalizeOptions } from './utils';
 
 import './MultiCheck.less';
 
@@ -44,7 +44,7 @@ export const MultiCheck: FC<MultiCheckProps> = ({
   children, 
   ...restProps 
 }) => {
-
+  options = normalizeOptions(options);
   // checked values
   const [value, setValue] = useState<string[]>(restProps.values || []);
 
@@ -88,6 +88,7 @@ export const MultiCheck: FC<MultiCheckProps> = ({
       setIndeterminate(false);
     }
     if (checkedOptions.length === 0) setCheckAll(false);
+    if (checkedOptions.length === options.length) setCheckAll(true);
     onChange?.(checkedOptions);
   };
 
